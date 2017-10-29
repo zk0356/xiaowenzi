@@ -1,0 +1,8 @@
+target/
+build/
+.project
+.classpath
+.settings
+*.class
+*.iml
+*~
