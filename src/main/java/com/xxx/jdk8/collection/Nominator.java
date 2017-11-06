@@ -33,7 +33,23 @@ public class Nominator implements Comparable<Nominator> {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Nominator nominator = (Nominator) o;
+
+        return name.equals(nominator.name);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return name.hashCode();
+    }
+
+    @Override
     public int compareTo(Nominator o) {
-        return this.getVote() - o.getVote();
+        return this.vote - o.getVote();
     }
 }

@@ -16,10 +16,10 @@ public class StreamDemo {
         nominatorList.add(new Nominator("zak",3));
         nominatorList.add(new Nominator("judd",4));
         nominatorList.add(new Nominator("bond",1));
-        nominatorList.add(new Nominator("sigmond",2));
+        nominatorList.add(new Nominator("zak",2));
         nominatorList.add(new Nominator("wason",5));
-        nominatorList.stream().sorted().distinct().collect(Collectors.toList()).forEach(System.out::println);
-
+        nominatorList.parallelStream().distinct().collect(Collectors.toList()).forEach(System.out::println);
+        nominatorList.stream().collect(Collectors.groupingBy(Nominator::getName));
 //        nominatorList
 //                .stream()
 //                .collect(Collectors.groupingBy(Nominator::getVote))

@@ -44,6 +44,5 @@ public class CollectionsDemo {
         int index = Collections.binarySearch(nominators, zak);
         System.out.println("position is " + index);
         Collectors.toCollection(LinkedList::new);
-        List<Nominator> synchronizedList = Collections.synchronizedList(new ArrayList<>());
     }
 }
