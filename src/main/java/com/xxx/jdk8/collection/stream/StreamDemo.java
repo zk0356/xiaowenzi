@@ -19,7 +19,7 @@ public class StreamDemo {
         nominatorList.add(new Nominator("zak",2));
         nominatorList.add(new Nominator("wason",5));
         nominatorList.parallelStream().distinct().collect(Collectors.toList()).forEach(System.out::println);
-        nominatorList.stream().collect(Collectors.groupingBy(Nominator::getName));
+        nominatorList.stream().filter(Nominator::interview).collect(Collectors.groupingBy(Nominator::getName));
 //        nominatorList
 //                .stream()
 //                .collect(Collectors.groupingBy(Nominator::getVote))
