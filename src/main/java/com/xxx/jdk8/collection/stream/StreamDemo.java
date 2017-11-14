@@ -1,10 +1,15 @@
 package com.xxx.jdk8.collection.stream;
 
+import com.xxx.jdk8.collection.MathFunctions;
 import com.xxx.jdk8.collection.Nominator;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.DoubleSummaryStatistics;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Created by xiaowenzi on 2017/9/27.
@@ -18,15 +23,28 @@ public class StreamDemo {
         nominatorList.add(new Nominator("bond",1));
         nominatorList.add(new Nominator("zak",2));
         nominatorList.add(new Nominator("wason",5));
-        nominatorList.parallelStream().distinct().collect(Collectors.toList()).forEach(System.out::println);
-        nominatorList.stream().filter(Nominator::interview).collect(Collectors.groupingBy(Nominator::getName));
-//        nominatorList
-//                .stream()
-//                .collect(Collectors.groupingBy(Nominator::getVote))
-//                .entrySet()
-//                .stream()
-//                .filter(integerListEntry -> integerListEntry.getValue().size() > 1)
-//                .map(integerListEntry -> integerListEntry.getValue().stream().map(Nominator::getName).collect(Collectors.toList()))
-//                .forEach(System.out::println);
+
+        StreamDemo demo = new StreamDemo();
+        demo.streamApi(nominatorList);
+
+        Function<Integer, Integer> time2 = integer -> integer * 2;
+        Function<Integer, Integer> square = (Function<Integer, Integer> & Serializable) integer -> integer * integer;
+        System.out.println(time2.compose(square).apply(3));
+        System.out.println(time2.andThen(square).apply(3));
+        DoubleSummaryStatistics doubleSummaryStatistics = Stream.of(3.2, 4.56, 2.01, 67.1)
+                                                .mapToDouble(Double::doubleValue).summaryStatistics();
+        System.out.println(doubleSummaryStatistics.getSum());
+        System.out.println(doubleSummaryStatistics.getMax());
+
+        Double reduce = Stream.of(4.53, 27.1, 6.09, 87.51, 10.2).reduce(0.0, MathFunctions.SUM);
+        System.out.println(reduce);
+    }
+
+    public void streamApi(List<Nominator> nominatorList) {
+        nominatorList.parallelStream().distinct().collect(Collectors.toList()).forEach(nominator -> this.print(nominator));
+    }
+
+    public void print(Nominator nominator) {
+        System.out.println(nominator);
     }
 }

@@ -3,7 +3,7 @@ package com.xxx.jdk8.collection;
 /**
  * Created by xiaowenzi on 2017/9/19.
  */
-public class Nominator implements Comparable<Nominator>, Interviewable {
+public class Nominator implements Comparable<Nominator> {
     private String name;
     private int vote;
 
@@ -51,10 +51,5 @@ public class Nominator implements Comparable<Nominator>, Interviewable {
     @Override
     public int compareTo(Nominator o) {
         return this.vote - o.getVote();
-    }
-
-    @Override
-    public boolean interview() {
-        return false;
     }
 }
