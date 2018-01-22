@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.DoubleSummaryStatistics;
 import java.util.List;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -26,22 +25,25 @@ public class StreamDemo {
 
         StreamDemo demo = new StreamDemo();
         demo.streamApi(nominatorList);
-
         Function<Integer, Integer> time2 = integer -> integer * 2;
         Function<Integer, Integer> square = (Function<Integer, Integer> & Serializable) integer -> integer * integer;
         System.out.println(time2.compose(square).apply(3));
         System.out.println(time2.andThen(square).apply(3));
         DoubleSummaryStatistics doubleSummaryStatistics = Stream.of(3.2, 4.56, 2.01, 67.1)
-                                                .mapToDouble(Double::doubleValue).summaryStatistics();
+                                                                .mapToDouble(Double::doubleValue)
+                                                                .summaryStatistics();
         System.out.println(doubleSummaryStatistics.getSum());
         System.out.println(doubleSummaryStatistics.getMax());
 
-        Double reduce = Stream.of(4.53, 27.1, 6.09, 87.51, 10.2).reduce(0.0, MathFunctions.SUM);
+        Double reduce = Stream.of(4.53, 27.1, 6.09, 87.51, 10.2)
+                              .reduce(0.0, MathFunctions.SUM);
         System.out.println(reduce);
     }
 
     public void streamApi(List<Nominator> nominatorList) {
-        nominatorList.parallelStream().distinct().collect(Collectors.toList()).forEach(nominator -> this.print(nominator));
+        nominatorList.parallelStream()
+                     .distinct()
+                     .forEach(this::print);
     }
 
     public void print(Nominator nominator) {

@@ -30,13 +30,15 @@ public class CollectionsDemo {
         nominators.add(wason);
         nominators.add(sigmond);
 //        Collections.sort(nominators, (o1, o2) -> o1.getVote() - o2.getVote());
+        Collections.sort(nominators);
+        System.out.println(nominators);
         Collections.reverse(nominators);
         System.out.println(nominators);
         Nominator min = Collections.min(nominators);
         System.out.println(min);
         Nominator max = Collections.max(nominators);
         System.out.println(max);
-//        Collections.sort(nominators);
+
         int[] intArray = {3, 1, 4, 2, 5};
         Arrays.sort(intArray);
         int search = Arrays.binarySearch(intArray, 2);
