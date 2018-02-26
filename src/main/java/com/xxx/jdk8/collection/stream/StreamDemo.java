@@ -41,7 +41,7 @@ public class StreamDemo {
     }
 
     public void streamApi(List<Nominator> nominatorList) {
-        nominatorList.parallelStream()
+        nominatorList.stream()
                      .distinct()
                      .forEach(this::print);
     }
