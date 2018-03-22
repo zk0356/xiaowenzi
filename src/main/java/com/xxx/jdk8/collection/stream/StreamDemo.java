@@ -42,8 +42,9 @@ public class StreamDemo {
 
     public void streamApi(List<Nominator> nominatorList) {
         nominatorList.stream()
+                     .peek(nominator -> System.out.println("before distinct:" + nominator))
                      .distinct()
-                     .forEach(this::print);
+                     .forEach(nominator -> System.out.println("after distinct:" + nominator));
     }
 
     public void print(Nominator nominator) {

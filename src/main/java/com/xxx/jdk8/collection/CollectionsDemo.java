@@ -1,7 +1,6 @@
 package com.xxx.jdk8.collection;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Created by xiaowenzi on 2017/9/19.
@@ -30,9 +29,9 @@ public class CollectionsDemo {
         nominators.add(wason);
         nominators.add(sigmond);
 //        Collections.sort(nominators, (o1, o2) -> o1.getVote() - o2.getVote());
-        Collections.sort(nominators);
-        System.out.println(nominators);
         Collections.reverse(nominators);
+        System.out.println(nominators);
+        Collections.sort(nominators);
         System.out.println(nominators);
         Nominator min = Collections.min(nominators);
         System.out.println(min);
@@ -41,10 +40,9 @@ public class CollectionsDemo {
 
         int[] intArray = {3, 1, 4, 2, 5};
         Arrays.sort(intArray);
-        int search = Arrays.binarySearch(intArray, 2);
-        System.out.println("search result is " + search);
-        int index = Collections.binarySearch(nominators, zak);
-        System.out.println("position is " + index);
-        Collectors.toCollection(LinkedList::new);
+        int position = Arrays.binarySearch(intArray, 1);
+        System.out.println("position is " + position);
+        int index = Collections.binarySearch(nominators, bond);
+        System.out.println("index is " + index);
     }
 }
