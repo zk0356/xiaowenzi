@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.DoubleSummaryStatistics;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
@@ -38,6 +39,14 @@ public class StreamDemo {
         Double reduce = Stream.of(4.53, 27.1, 6.09, 87.51, 10.2)
                               .reduce(0.0, MathFunctions.SUM);
         System.out.println(reduce);
+
+//        StreamSupport.stream();
+        ThreadLocalRandom random = ThreadLocalRandom.current();
+        random.ints()
+              .filter(value -> value > 0)
+              .limit(20)
+              .peek(value -> System.out.println(value+","))
+              .toArray();
     }
 
     public void streamApi(List<Nominator> nominatorList) {
@@ -47,7 +56,5 @@ public class StreamDemo {
                      .forEach(nominator -> System.out.println("after distinct:" + nominator));
     }
 
-    public void print(Nominator nominator) {
-        System.out.println(nominator);
-    }
+
 }
