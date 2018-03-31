@@ -40,7 +40,12 @@ public class CompletableFutureDemo {
     private static void testCancel(CompletableFuture[] futures) {
         for (CompletableFuture future: futures) {
             if (!future.isDone()) {
-                future.cancel(true);
+                try {
+//                    Thread.sleep(100);
+                    future.cancel(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

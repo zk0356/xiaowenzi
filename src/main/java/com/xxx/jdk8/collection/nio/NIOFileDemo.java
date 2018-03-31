@@ -6,6 +6,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.function.Predicate;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
@@ -13,12 +14,12 @@ import java.util.zip.ZipFile;
 /**
  * Created by xiaowenzi on 2018/2/9.
  */
-public class NIODemo {
+public class NIOFileDemo {
     public static void main(String[] args) {
 //        testFilesLines();
 //        testFilesList();
-        testFilesWalk();
-//        testBufferedReaderLines();
+//        testFilesWalk();
+        testPatternSplit();
     }
 
     private static void testFilesLines() {
@@ -31,20 +32,12 @@ public class NIODemo {
         }
     }
 
-    private static void testBufferedReaderLines() {
-        String fileName = "linux命令.docx";
-        final String keyword = "管道";
-        try(FileInputStream fr = new FileInputStream(fileName);
-            InputStreamReader is = new InputStreamReader(fr,"GB2312");
-            BufferedReader reader = new BufferedReader(is);
-            Stream<String> lines = reader.lines()) {
-            lines.peek(System.out::println)
-                 .filter(line -> line.contains(keyword))
-                 .findFirst()
-                 .ifPresent(line -> System.out.println("找到包含关键字["+keyword+"]的行["+line+"]"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private static void testPatternSplit() {
+        String path = Thread.currentThread().getContextClassLoader().getResource("").getPath();
+        System.out.println("类路径为:\n" + path);
+        Pattern.compile("/")
+               .splitAsStream(path)
+               .forEach(System.out::println);
     }
 
     private static void testFilesList() {
@@ -109,7 +102,7 @@ public class NIODemo {
                     e.printStackTrace();
                 }
                 if (!contain) {
-                    System.out.println("文件["+f.getName()+"]未包含关键字["+keyword+"]");
+                    System.out.println("文件["+f.getName()+"]未包含关键字");
                 }
                 return contain;
             };

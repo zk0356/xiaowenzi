@@ -13,9 +13,9 @@ public class WithdrawCollector {
     }
 
     public void fetchFromWs(String product) {
-        if (product.equals("A06")) {
-            throw new RuntimeException("连接三级分销接口出错");
-        }
+//        if (product.equals("A06")) {
+//            throw new RuntimeException("连接三级分销接口出错");
+//        }
         System.out.println("从ws抓取"+product+"现金取款提案");
         doBussiness();
     }
