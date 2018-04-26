@@ -1,6 +1,6 @@
-package com.xxx.jdk8.collection.fp;
+package com.xxx.jdk8.fp;
 
-import com.xxx.jdk8.collection.Nominator;
+import com.xxx.jdk8.Nominator;
 
 import java.util.Optional;
 

@@ -1,4 +1,4 @@
-package com.xxx.jdk8.collection.fp;
+package com.xxx.jdk8.fp;
 
 /**
  * 使用尾递归的包装类

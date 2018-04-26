@@ -1,4 +1,4 @@
-package com.xxx.jdk8.collection;
+package com.xxx.jdk8;
 
 /**
  * Created by xiaowenzi on 2017/11/6.

@@ -1,7 +1,7 @@
-package com.xxx.jdk8.collection.stream;
+package com.xxx.jdk8.stream;
 
-import com.xxx.jdk8.collection.MathFunctions;
-import com.xxx.jdk8.collection.Nominator;
+import com.xxx.jdk8.MathFunctions;
+import com.xxx.jdk8.Nominator;
 
 import java.io.Serializable;
 import java.util.ArrayList;

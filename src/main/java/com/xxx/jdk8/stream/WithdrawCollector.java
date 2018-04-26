@@ -1,4 +1,4 @@
-package com.xxx.jdk8.collection.stream;
+package com.xxx.jdk8.stream;
 
 /**
  * Created by xiaowenzi on 2018/3/15.

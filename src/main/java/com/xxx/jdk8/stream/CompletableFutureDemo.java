@@ -1,4 +1,4 @@
-package com.xxx.jdk8.collection.stream;
+package com.xxx.jdk8.stream;
 
 import java.util.concurrent.*;
 import java.util.logging.Level;

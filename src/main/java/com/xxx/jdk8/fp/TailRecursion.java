@@ -1,4 +1,4 @@
-package com.xxx.jdk8.collection.fp;
+package com.xxx.jdk8.fp;
 
 import java.util.stream.Stream;
 

@@ -1,4 +1,4 @@
-package com.xxx.jdk8.collection.nio;
+package com.xxx.jdk8.nio;
 
 import java.io.*;
 import java.nio.charset.Charset;

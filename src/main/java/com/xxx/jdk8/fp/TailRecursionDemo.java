@@ -1,4 +1,4 @@
-package com.xxx.jdk8.collection.fp;
+package com.xxx.jdk8.fp;
 
 /**
  * Created by xiaowenzi on 2018/2/26.

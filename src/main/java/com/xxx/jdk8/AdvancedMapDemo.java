@@ -1,4 +1,4 @@
-package com.xxx.jdk8.collection;
+package com.xxx.jdk8;
 
 import java.util.EnumMap;
 
