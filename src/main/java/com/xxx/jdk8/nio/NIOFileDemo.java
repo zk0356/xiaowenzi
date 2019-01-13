@@ -25,7 +25,8 @@ public class NIOFileDemo {
     private static void testFilesLines() {
         String fileName = ".gitignore";
         final Path path = new File(fileName).toPath();
-        try( Stream<String> lines = Files.lines( path, StandardCharsets.UTF_8 ) ) {
+
+        try(Stream<String> lines = Files.lines(path, StandardCharsets.UTF_8)) {
             lines.onClose( () -> System.out.println("逐行扫描整个文件结束") ).forEach( System.out::println );
         } catch (IOException e) {
             e.printStackTrace();
@@ -44,17 +45,20 @@ public class NIOFileDemo {
         String fileName = "学习资料(1).zip";
         String rootPath = ".";
         final Path path = new File(rootPath).toPath();
+
         try(Stream<Path> list = Files.list(path)) {
             list.filter(p -> p.getFileName().toString().equals(fileName))
                 .onClose(() -> System.out.println("扫描当前工程根目录并找出指定的zip文件，打印出压缩文件列表"))
                 .findFirst()
                 .ifPresent(p -> {
                     System.out.println("找到文件" + p.getFileName().toString());
+
                     try(ZipFile zip = new ZipFile(p.getFileName().toString(), Charset.forName("GBK"))) {
                         final String keyword = "绕过这个环";
                         Predicate<ZipEntry> isFile = entry -> !entry.isDirectory();
                         Predicate<ZipEntry> containKeywords = entry -> {
                             boolean contain = false;
+
                             try(InputStream inputStream = zip.getInputStream(entry);
                                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
                                 Stream<String> lines = reader.lines()) {
@@ -64,11 +68,13 @@ public class NIOFileDemo {
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
+
                             if (contain) {
                                 System.out.println("找到包含关键字["+keyword+"]的文件["+entry.getName()+"]");
                             } else {
                                 System.out.println("文件["+entry.getName()+"]未包含关键字["+keyword+"]");
                             }
+
                             return contain;
                         };
                         zip.stream()
@@ -86,11 +92,13 @@ public class NIOFileDemo {
     private static void testFilesWalk() {
         String fileName = "src";
         final Path path = new File(fileName).toPath();
+
         try(Stream<Path> list = Files.walk(path)) {
             final String keyword = "@FunctionalInterface";
             Predicate<File> isFile = f -> !f.isDirectory();
             Predicate<File> containKeyword = f -> {
                 boolean contain = false;
+
                 try(FileInputStream fr = new FileInputStream(f.getAbsoluteFile());
                     InputStreamReader is = new InputStreamReader(fr,"UTF-8");
                     BufferedReader reader = new BufferedReader(is);
@@ -101,9 +109,11 @@ public class NIOFileDemo {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+
                 if (!contain) {
                     System.out.println("文件["+f.getName()+"]未包含关键字");
                 }
+
                 return contain;
             };
             list.map(Path::toFile)

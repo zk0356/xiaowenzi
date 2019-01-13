@@ -15,7 +15,6 @@ public class ConcurrentHashMapDemo {
         map.merge("sigmond", 51, (oldValue, newValue) -> oldValue + newValue);
         map.merge("fenix", 173, (oldValue, newValue) -> oldValue + newValue);
         map.merge("kaka", 9, (oldValue, newValue) -> oldValue + newValue);
-
         map.merge("zak", 126, (oldValue, newValue) -> oldValue + newValue);
 
         String search = map.search(1, (key, value) -> value % 8 == 0 ? key : null);

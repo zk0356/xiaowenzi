@@ -19,9 +19,9 @@ public class CollectionsDemo {
         candidates.add(bond);
         candidates.add(wason);
         candidates.add(sigmond);
-        System.out.println(candidates);
+        System.out.println("treeset:" + candidates);
         NavigableSet<Nominator> descendingSet = candidates.descendingSet();
-        System.out.println(descendingSet);
+        System.out.println("dectreeset:" + descendingSet);
         List<Nominator> nominators = new ArrayList<>();
         nominators.add(zak);
         nominators.add(judd);
@@ -29,18 +29,18 @@ public class CollectionsDemo {
         nominators.add(wason);
         nominators.add(sigmond);
 //        Collections.sort(nominators, (o1, o2) -> o1.getVote() - o2.getVote());
-        Collections.reverse(nominators);
-        System.out.println(nominators);
         Collections.sort(nominators);
-        System.out.println(nominators);
+        System.out.println("sort:" + nominators);
+        Collections.reverse(nominators);
+        System.out.println("reverse:" + nominators);
         Nominator min = Collections.min(nominators);
-        System.out.println(min);
+        System.out.println("min:" + min);
         Nominator max = Collections.max(nominators);
-        System.out.println(max);
+        System.out.println("max:" + max);
 
         int[] intArray = {3, 1, 4, 2, 5};
         Arrays.sort(intArray);
-        int position = Arrays.binarySearch(intArray, 1);
+        int position = Arrays.binarySearch(intArray, 4);
         System.out.println("position is " + position);
         int index = Collections.binarySearch(nominators, bond);
         System.out.println("index is " + index);
