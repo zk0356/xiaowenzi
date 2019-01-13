@@ -1,11 +1,16 @@
 package com.xxx.jdk8;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.*;
 
 /**
  * Created by xiaowenzi on 2017/9/19.
  */
 public class CollectionsDemo {
+    private static Logger logger = LoggerFactory.getLogger(CollectionsDemo.class);
+
     public static void main(String[] args) {
         Nominator zak = new Nominator("zak", 3);
         Nominator judd = new Nominator("judd", 1);
@@ -19,9 +24,9 @@ public class CollectionsDemo {
         candidates.add(bond);
         candidates.add(wason);
         candidates.add(sigmond);
-        System.out.println("treeset:" + candidates);
+        logger.info("treeset:" + candidates);
         NavigableSet<Nominator> descendingSet = candidates.descendingSet();
-        System.out.println("dectreeset:" + descendingSet);
+        logger.info("dectreeset:" + descendingSet);
         List<Nominator> nominators = new ArrayList<>();
         nominators.add(zak);
         nominators.add(judd);
@@ -30,19 +35,19 @@ public class CollectionsDemo {
         nominators.add(sigmond);
 //        Collections.sort(nominators, (o1, o2) -> o1.getVote() - o2.getVote());
         Collections.sort(nominators);
-        System.out.println("sort:" + nominators);
+        logger.info("sort:" + nominators);
         Collections.reverse(nominators);
-        System.out.println("reverse:" + nominators);
+        logger.info("reverse:" + nominators);
         Nominator min = Collections.min(nominators);
-        System.out.println("min:" + min);
+        logger.info("min:" + min);
         Nominator max = Collections.max(nominators);
-        System.out.println("max:" + max);
+        logger.info("max:" + max);
 
         int[] intArray = {3, 1, 4, 2, 5};
         Arrays.sort(intArray);
         int position = Arrays.binarySearch(intArray, 4);
-        System.out.println("position is " + position);
+        logger.info("position is " + position);
         int index = Collections.binarySearch(nominators, bond);
-        System.out.println("index is " + index);
+        logger.info("index is " + index);
     }
 }

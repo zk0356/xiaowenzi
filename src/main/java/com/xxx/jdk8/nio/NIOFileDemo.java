@@ -1,5 +1,8 @@
 package com.xxx.jdk8.nio;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -15,11 +18,13 @@ import java.util.zip.ZipFile;
  * Created by xiaowenzi on 2018/2/9.
  */
 public class NIOFileDemo {
+    private static Logger logger = LoggerFactory.getLogger(NIOFileDemo.class);
+
     public static void main(String[] args) {
 //        testFilesLines();
-//        testFilesList();
+        testFilesList();
 //        testFilesWalk();
-        testPatternSplit();
+//        testPatternSplit();
     }
 
     private static void testFilesLines() {
@@ -27,18 +32,18 @@ public class NIOFileDemo {
         final Path path = new File(fileName).toPath();
 
         try(Stream<String> lines = Files.lines(path, StandardCharsets.UTF_8)) {
-            lines.onClose( () -> System.out.println("逐行扫描整个文件结束") ).forEach( System.out::println );
+            lines.onClose(() -> logger.info("逐行扫描整个文件结束")).forEach(logger::info);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("扫描文件" + fileName + "出错", e);
         }
     }
 
     private static void testPatternSplit() {
         String path = Thread.currentThread().getContextClassLoader().getResource("").getPath();
-        System.out.println("类路径为:\n" + path);
+        logger.info("类路径为:\n" + path);
         Pattern.compile("/")
                .splitAsStream(path)
-               .forEach(System.out::println);
+               .forEach(logger::info);
     }
 
     private static void testFilesList() {
@@ -48,14 +53,15 @@ public class NIOFileDemo {
 
         try(Stream<Path> list = Files.list(path)) {
             list.filter(p -> p.getFileName().toString().equals(fileName))
-                .onClose(() -> System.out.println("扫描当前工程根目录并找出指定的zip文件，打印出压缩文件列表"))
+                .onClose(() -> logger.info("扫描当前工程根目录并找出指定的zip文件，打印出压缩文件列表"))
                 .findFirst()
                 .ifPresent(p -> {
-                    System.out.println("找到文件" + p.getFileName().toString());
+                    logger.info("找到文件" + p.getFileName().toString());
 
                     try(ZipFile zip = new ZipFile(p.getFileName().toString(), Charset.forName("GBK"))) {
                         final String keyword = "绕过这个环";
                         Predicate<ZipEntry> isFile = entry -> !entry.isDirectory();
+
                         Predicate<ZipEntry> containKeywords = entry -> {
                             boolean contain = false;
 
@@ -66,26 +72,27 @@ public class NIOFileDemo {
                                                .findFirst()
                                                .isPresent();
                             } catch (IOException e) {
-                                e.printStackTrace();
+                                logger.error("", e);
                             }
 
                             if (contain) {
-                                System.out.println("找到包含关键字["+keyword+"]的文件["+entry.getName()+"]");
+                                logger.info("找到包含关键字["+keyword+"]的文件["+entry.getName()+"]");
                             } else {
-                                System.out.println("文件["+entry.getName()+"]未包含关键字["+keyword+"]");
+                                logger.info("文件["+entry.getName()+"]未包含关键字["+keyword+"]");
                             }
 
                             return contain;
                         };
+
                         zip.stream()
                            .filter(isFile.and(containKeywords))
-                           .forEach(entry -> System.out.println(p.getFileName().toString() + ":[" + entry.getName() + "]"));
+                           .forEach(entry -> logger.info(p.getFileName().toString() + ":[" + entry.getName() + "]"));
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        logger.error("", e);
                     }
                 });
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("遍历压缩包" + fileName + "出错", e);
         }
     }
 
@@ -96,6 +103,7 @@ public class NIOFileDemo {
         try(Stream<Path> list = Files.walk(path)) {
             final String keyword = "@FunctionalInterface";
             Predicate<File> isFile = f -> !f.isDirectory();
+
             Predicate<File> containKeyword = f -> {
                 boolean contain = false;
 
@@ -107,20 +115,21 @@ public class NIOFileDemo {
                                    .findFirst()
                                    .isPresent();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    logger.error("读取文件" + f.getName() + "出错", e);
                 }
 
                 if (!contain) {
-                    System.out.println("文件["+f.getName()+"]未包含关键字");
+                    logger.info("文件["+f.getName()+"]未包含关键字");
                 }
 
                 return contain;
             };
+
             list.map(Path::toFile)
                 .filter(isFile.and(containKeyword))
-                .forEach(file -> System.out.println("找到包含关键字["+keyword+"]的文件["+file.getName()+"]"));
+                .forEach(file -> logger.info("找到包含关键字["+keyword+"]的文件["+file.getName()+"]"));
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("遍历" + path.toString() + "出错", e);
         }
     }
 }
